@@ -25,6 +25,9 @@ routine, and a morning opener with a Bible verse and your teams' scores.
 
 ## Install (once)
 
+Full step-by-step guide, including connecting your accounts and
+troubleshooting: **[INSTALL.md](INSTALL.md)**. The short version:
+
 Prerequisite: Claude Code and SSH access to this repo.
 
 ```
