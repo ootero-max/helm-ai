@@ -1,0 +1,13 @@
+{
+  "name": "helm-ai",
+  "owner": { "name": "Ozzy Otero", "email": "ootero@dazos.com" },
+  "plugins": [
+    {
+      "name": "helm-ai",
+      "source": "./",
+      "description": "Daily command center for product leaders: morning triage, check-ins, todos, drafts, meeting prep, 1:1s, weekly review.",
+      "version": "1.0.0",
+      "author": { "name": "Ozzy Otero", "email": "ootero@dazos.com" }
+    }
+  ]
+}
