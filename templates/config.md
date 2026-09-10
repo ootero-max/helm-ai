@@ -33,10 +33,20 @@ Every Helm command reads this first. Keep values on one line after the colon.
 - verse: off
 - verse translation: ESV
 - sports: off
+- logo: off
 - teams:
   - 
   - 
-<!-- verse: on|off. sports: on|off. Max two teams, e.g. "🐬 Miami Dolphins (NFL)". -->
+<!-- verse: on|off. sports: on|off (last result + next game per team).
+     logo: on|off — prints ASCII art from art/<team-slug>.txt at the very top,
+     alternating teams. Max two teams, e.g. "🐬 Miami Dolphins (NFL)". -->
+
+## Display
+- bucket colors: classic
+- bucket emoji: 🔴 🟡 🟢 ⚪
+<!-- Order: urgent · needs reply · can wait · FYI. classic keeps the defaults.
+     Set "team" and pick four emoji in your teams' colors, hottest first,
+     e.g. 🟠 🩵 🟢 ⚪ for Dolphins/Hurricanes. Every command uses these. -->
 
 ## Routines
 - slack briefs: off

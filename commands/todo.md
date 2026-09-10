@@ -65,5 +65,5 @@ If a date is unparseable, ask once, tersely.
 - After writing, run exactly:
   `git add todos.md personal.md && git commit -q -m "todo: <one-line summary of the change>" || true`
   Silent on success; skip without comment if git is unavailable or nothing changed.
-- Confirm with one line per change, e.g. `Added 🟢 Prep IQ demo (due 2026-09-11)`.
-  Nothing else.
+- Confirm with one line per change, e.g. `Added 🟢 Prep IQ demo (due 2026-09-11)`,
+  using the bucket emoji from `config.md → Display` if present. Nothing else.

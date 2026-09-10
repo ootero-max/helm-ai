@@ -10,8 +10,17 @@ Read `config.md` in this directory. If it is missing, stop and say: "No
 config.md here — run `/setup` first." Use it for my name, boss, team, Jira
 projects, and preferences everywhere below.
 
-Then open the brief with up to three short lines, in this order, only for
-what `## Morning extras` enables:
+**Bucket emoji:** wherever this file says 🔴 🟡 🟢 ⚪, use the four emoji from
+`config.md → Display → bucket emoji` in that order (urgent, needs reply, can
+wait, FYI). Bucket names in `todos.md` never change.
+
+Then open the brief, in this order, only for what `## Morning extras` enables:
+0. If `logo: on` — pick today's featured team: the one whose next game is
+   sooner (from the sports search below); if unknown or tied, alternate by day
+   of year (odd → first team, even → second). Print `art/<team-slug>.txt`
+   verbatim inside a fenced code block, before anything else. Slug = last word
+   of the team name, lowercase (Dolphins → `dolphins`). If the file is
+   missing, skip silently.
 1. If `verse: on` — a short encouraging Bible verse (exact text in the
    configured translation, cite it, e.g. "— Philippians 4:6 (ESV)"). Vary it
    day to day; fit the season or the load ahead.

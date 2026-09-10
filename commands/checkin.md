@@ -10,6 +10,8 @@ in order. Argument: `$ARGUMENTS`.
 
 Read `config.md` first (boss, team, Jira projects, support project). If it is
 missing, stop and say: "No config.md here — run `/setup` first."
+Wherever this file says 🔴 🟡 🟢 ⚪, use the four emoji from
+`config.md → Display → bucket emoji` in that order.
 
 ## Modes
 - **(none)** — full check-in: Status → Delta → Suggestions → update loop.

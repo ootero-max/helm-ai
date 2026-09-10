@@ -60,5 +60,11 @@ Both tags optional. `due` = visible now, escalates to 🔴 when due
 today/tomorrow or overdue. `snoozed until` = hidden until that date, then
 surfaces as 🔔 now due. A reminder is just a snoozed item.
 
+## Display
+Bucket emoji come from `config.md → Display → bucket emoji`, in the order
+urgent · needs reply · can wait · FYI. Defaults are 🔴 🟡 🟢 ⚪. Section names
+in `todos.md` never change regardless of emoji. `art/` holds optional ASCII
+logos printed by `/morning`.
+
 ## Tone
 Briefs are terse. One line per item with a link. No filler.

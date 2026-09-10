@@ -48,7 +48,17 @@ group weekly and support summaries.
 2. "Want a line with your favorite sports teams' latest result and next game?
    Up to two teams, any league." Set `sports: on|off` and the `teams` list as
    `emoji Team Name (League)`. Pick a fitting emoji yourself.
-Both default to off. Never push.
+3. If they named teams: "Want an ASCII logo at the top of the brief? It
+   alternates between your teams." If yes, set `logo: on` and draw one piece
+   of ASCII art per team into `art/<team-slug>.txt` (slug = last word of the
+   team name, lowercase). Max 8 lines × 60 columns, plain ASCII plus block
+   characters, the team name and one short motto on the right. Show each one
+   in a code block and offer one redraw.
+4. If they named teams: "Want the urgency markers in your teams' colors
+   instead of the classic 🔴 🟡 🟢 ⚪?" If yes, set `Display → bucket colors:
+   team` and choose four emoji from the teams' colors, hottest color for
+   urgent, e.g. 🟠 🩵 🟢 ⚪. Otherwise leave classic.
+All default to off. Never push.
 
 **connectors** — Detect what's connected by attempting one cheap read with
 each tool family: Gmail (search 1 message), Jira (search 1 issue), Slack (read
