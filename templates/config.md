@@ -39,7 +39,7 @@ Every Helm command reads this first. Keep values on one line after the colon.
   - 
 <!-- verse: on|off. sports: on|off (last result + next game per team).
      logo: on|off — prints ASCII art from art/<team-slug>.txt at the very top,
-     alternating teams. Max two teams, e.g. "🐬 Miami Dolphins (NFL)". -->
+     alternating teams (slug = team name, lowercase, letters only: miamidolphins). Max two teams, e.g. "🐬 Miami Dolphins (NFL)". -->
 
 ## Display
 - bucket colors: classic

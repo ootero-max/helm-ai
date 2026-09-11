@@ -50,8 +50,8 @@ group weekly and support summaries.
    `emoji Team Name (League)`. Pick a fitting emoji yourself.
 3. If they named teams: "Want an ASCII logo at the top of the brief? It
    alternates between your teams." If yes, set `logo: on` and draw one piece
-   of ASCII art per team into `art/<team-slug>.txt` (slug = last word of the
-   team name, lowercase). Max 8 lines × 60 columns, plain ASCII plus block
+   of ASCII art per team into `art/<team-slug>.txt` (slug = full team name,
+   lowercase, letters only, league dropped: `miamidolphins`, `intermiamicf`). Max 8 lines × 60 columns, plain ASCII plus block
    characters, the team name and one short motto on the right. Show each one
    in a code block and offer one redraw.
 4. If they named teams: "Want the urgency markers in your teams' colors
@@ -86,7 +86,10 @@ for each of morning, checkin, todo, draft, prep, weekly, 1on1, setup, write
 `.claude/commands/<name>.md` from `${CLAUDE_PLUGIN_ROOT}/templates/alias.md`,
 replacing `{{COMMAND}}`, `{{DESCRIPTION}}` (copy from the plugin command's
 frontmatter), and `{{ARGUMENT_HINT}}` (same; empty if none). Skip files that
-already exist.
+already exist. Tell the user first, in one line, that Claude Code will ask
+them to approve writing these files because they live under `.claude/`; they
+should answer yes. If a write is denied, list the aliases that were skipped
+and say `/setup aliases` can finish it later.
 
 ## Finish
 - If not already a git repo: `git init -q`, then

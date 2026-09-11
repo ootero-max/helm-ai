@@ -18,9 +18,10 @@ Then open the brief, in this order, only for what `## Morning extras` enables:
 0. If `logo: on` — pick today's featured team: the one whose next game is
    sooner (from the sports search below); if unknown or tied, alternate by day
    of year (odd → first team, even → second). Print `art/<team-slug>.txt`
-   verbatim inside a fenced code block, before anything else. Slug = last word
-   of the team name, lowercase (Dolphins → `dolphins`). If the file is
-   missing, skip silently.
+   verbatim inside a fenced code block, before anything else. Slug = the full
+   team name, lowercase, letters only, league dropped (Miami Dolphins →
+   `miamidolphins`, Inter Miami CF → `intermiamicf`). If the file is missing,
+   skip silently.
 1. If `verse: on` — a short encouraging Bible verse (exact text in the
    configured translation, cite it, e.g. "— Philippians 4:6 (ESV)"). Vary it
    day to day; fit the season or the load ahead.

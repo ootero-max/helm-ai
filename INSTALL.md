@@ -187,6 +187,10 @@ check the username it greets. Ask Ozzy to add that account as a collaborator.
 **`/helm-ai:setup` says unknown command.** The plugin loaded after your session
 started. Run `/reload-plugins` or start a new `claude` session.
 
+**Setup asks permission to write files under `.claude/commands/`.** Say yes.
+Those are the eight tiny alias files that let you type `/morning` instead of
+`/helm-ai:morning`. If you declined, run `/setup aliases`.
+
 **"No config.md here — run /setup first."** You're in the wrong folder. `cd`
 into your workspace before starting Claude Code.
 
