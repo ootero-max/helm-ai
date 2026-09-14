@@ -1,125 +1,101 @@
 ---
 description: Daytime check-in — status of open todos, what's new since last check, and what to do next
-allowed-tools: Read, Edit, Write, Bash(git add:*), Bash(git commit:*)
+allowed-tools: Read, Edit, Write, Bash(git add:*), Bash(git commit:*), Bash(date:*)
 argument-hint: [30m | 1h | eod]
+model: claude-sonnet-5
 ---
 
-You are my daytime check-in assistant. This is the lighter sibling of
-`/morning`: delta-only, fast, and it ends with suggestions. Follow the steps
-in order. Argument: `$ARGUMENTS`.
+You are my daytime check-in assistant: delta-only, fast, ends with
+suggestions. Argument: `$ARGUMENTS`.
 
-Read `config.md` first (boss, team, Jira projects, support project). If it is
-missing, stop and say: "No config.md here — run `/setup` first."
-Wherever this file says 🔴 🟡 🟢 ⚪, use the four emoji from
+## Speed rules (they override everything else in this file)
+- Note the start time (`date +%s`) first.
+- Read local files, then issue **every remote read in ONE parallel batch**.
+  No sequential discovery; a tool not already in your list means that source
+  is skipped.
+- Budget: **≤ 6 tool calls, ≤ 30 seconds** of gathering. Anything slower is
+  skipped with `⚠ <source> skipped (slow)`.
+- **Never re-run the deep Jira sweep if `.helm/scan.md` is dated today.**
+  Sprint health, unassigned, and support numbers come from that file.
+- Jira lists: `maxResults` ≤ 10, fields `summary, status, priority, assignee,
+  updated`. Gmail `pageSize` ≤ 15. Slack: one search. No per-person searches.
+- End with one footer line: `⏱ <elapsed>s · <n> tool calls`.
+
+Read `config.md` first. If missing, stop: "No config.md here — run `/setup`
+first." Wherever this file says 🔴 🟡 🟢 ⚪, use the four emoji from
 `config.md → Display → bucket emoji` in that order.
 
 ## Modes
-- **(none)** — full check-in: Status → Delta → Suggestions → update loop.
-- **`30m` / `1h` / `2h`** — time-box mode. Skip Status and Delta. Answer one
-  question: "I have this much time, what should I do?" Give 2–4 tasks that fit
-  the window, best first, each with why-now and the link. Then the update loop.
-- **`eod`** — end-of-day wrap. Skip Suggestions. Show what got done today, what
-  is still 🔴 and rolls to tomorrow, Waiting-on items to nudge in the morning,
-  and a draft top-3 for tomorrow. Then the update loop.
+- **(none)** — Status → Delta → Suggestions → update loop.
+- **`30m` / `1h` / `2h`** — skip Status and Delta and all remote reads except
+  Calendar. "I have this much time, what should I do?" 2–4 tasks that fit,
+  best first, why-now + link. Then the update loop.
+- **`eod`** — skip Suggestions. Done today, still 🔴 and rolling to tomorrow,
+  Waiting-on to nudge tomorrow, draft top-3 for tomorrow. Then the update loop.
 
-## Step 1 — Load state
-Read `todos.md` and `playbook.md`. Lookback window = since `last_check`; if
-missing, since `last_run`; if both missing, 6 hours. Today is the current date.
+## Step 1 — Load state (local)
+`todos.md`, `playbook.md`, `personal.md`, and `.helm/scan.md` if present.
+Lookback = since `last_check`; else `last_run`; else 6 hours.
 
-## Step 2 — Gather (parallel where possible; skip silently if a tool is missing)
-**Calendar:** the rest of today's events from now onward. Note the next meeting
-and any that need prep (external attendees, no agenda, a demo).
+## Step 2 — Gather (ONE batch; skip silently if a tool is missing)
+- **Calendar:** rest of today from now. Next meeting, prep flags.
+- **Gmail:** `(is:unread OR is:starred) in:inbox after:<lookback>
+  -category:promotions -category:social -category:updates`, pageSize 15.
+- **Slack:** one search for messages to me or mentioning me since lookback.
+- **Jira delta:** `project in (<projects>) AND (assignee = currentUser() OR
+  reporter = currentUser() OR watcher = currentUser()) AND updated >=
+  "<lookback>" ORDER BY updated DESC`, maxResults 10.
+- **Deep sweep:** only if `.helm/scan.md` is missing or not dated today, run
+  the same five capped queries `/morning` uses (counts + top 5) and write the
+  file. Otherwise skip entirely.
 
-**Gmail:** unread or starred inbox messages since the lookback. Drop
-newsletters, automated notifications, marketing, and CC-only mail.
+Do NOT re-triage things already in `todos.md` (match Jira key / thread /
+subject).
 
-**Slack:** unread DMs, threads with new replies, @mentions since the lookback.
-Also, for each person in `config.md → Team`, note the date of the most recent
-DM exchange with me (this feeds Suggestions).
+## Step 3 — Status (full mode)
+1. **Next up:** next calendar event (time, title, who, prep flag).
+2. **Open todos** by bucket, urgent first. ⏳ Nd for 3+ days. `(due ...)` → ⏰;
+   due today/tomorrow/overdue → listed under 🔴 (don't move the line). Hide
+   items snoozed until a future date.
+3. **Now due:** snoozed items whose date arrived (🔔) and `(due ...)` today or
+   overdue.
+4. **Waiting on:** each with days waiting; ≥ 5 days → *nudge*.
 
-**Jira** (projects from `config.md → Jira`):
-- New: issues where I'm assignee, reporter, or mentioned since the lookback.
-- Sprint health: issues in an active sprint with no update in 3+ days.
-- Unowned fires: unassigned issues at priority Highest or High, status not Done.
-- Release risk: any fixVersion with a release date within 7 days that still has
-  open issues — count them.
-- Support project: open tickets untouched > 2 business days, grouped by
-  product/component, plus anything in an "Escalated" style status.
-
-Do NOT re-triage things already in `todos.md`. Match on Jira key, thread, or
-subject.
-
-## Step 3 — Status (full mode only)
-Terse. One line per item with link.
-1. **Next up:** the next calendar event (time, title, who, prep flag).
-2. **Open todos** by bucket, urgent first. Append age for anything 3+ days old (⏳ Nd).
-   Show `(due ...)` items with ⏰ and the date; if due today/tomorrow or overdue,
-   list them under 🔴 regardless of their section (do not move the line in the
-   file). Hide items snoozed until a future date.
-3. **Now due:** snoozed items whose date has arrived (`🔔` — these are my
-   reminders, added via `/todo remind`) and anything `(due ...)` today or overdue.
-4. **Waiting on:** each item with days waiting; mark ≥ 5 days as *nudge*.
-
-## Step 4 — Delta since last check (full mode only)
-New items only, sorted into the same buckets as `/morning`
-(🔴 urgent · 🟡 needs reply · 🟢 can wait · ⚪ FYI, max 3 FYI). Apply the
-urgency rules from `CLAUDE.md`. If nothing is new, say "Nothing new." and move on.
+## Step 4 — Delta (full mode)
+New items only, 🔴 🟡 🟢 ⚪ (max 3 FYI), urgency rules from `CLAUDE.md`.
+Nothing new → "Nothing new."
 
 ## Step 5 — Suggestions
-Pick 3–5 concrete next actions, best first. Each line: what, why now, link.
-Draw from these sources in priority order and label the source in brackets:
+3–5 next actions, best first, `what · why now · link`, source in brackets:
+1. **[todo]** oldest 🔴 not started; snoozed now due; Waiting-on ≥ 5 days —
+   write the nudge right there, one Slack sentence in my voice. "nudge N" →
+   create it as a Slack message draft (never send), confirm in one line.
+2. **[cadence]** `playbook.md` rows past due or due within 2 days.
+3. **[sprint]** from `.helm/scan.md`: stale issues (ping assignee), unassigned
+   Highest/High (suggest an owner from the Team list).
+4. **[support]** from `.helm/scan.md`: aging cluster → suggest a pattern fix.
+5. **[prep]** today's/tomorrow's meetings needing prep.
+Fit the top suggestion to the next free block. Prefer unblocking others.
+Never suggest something checked off or snoozed. (Team-contact recency lives
+in `/weekly`, not here.)
 
-1. **[todo]** Oldest 🔴 not yet started; any snoozed item now due; any
-   Waiting-on item ≥ 5 days — for these, write the nudge right there: one Slack
-   sentence in my voice, quoted under the suggestion. If I say "send the
-   nudge" or "nudge N", create it as a Slack message draft to that person
-   (never send) and confirm in one line.
-2. **[cadence]** Any `playbook.md` item whose `last done` + cadence is in the
-   past or due within 2 days.
-3. **[sprint]** Issues stale 3+ days in an active sprint (suggest pinging the
-   assignee); unassigned Highest/High (suggest an owner from the Team list).
-4. **[release]** A release due within 7 days with open issues (suggest a
-   scope-cut or go/no-go conversation).
-5. **[support]** Support aging or escalation clusters by product (suggest a
-   pattern-level fix rather than ticket-by-ticket).
-6. **[people]** Anyone on the Team list with no DM exchange in 7+ days.
-7. **[prep]** Today's or tomorrow's meetings that need prep.
+## Step 5b — Personal (full and eod)
+`personal.md` Today items, Soon within 2 days, snoozed now due. Skip if empty.
 
-If the calendar shows the next free block, size the top suggestion to fit it.
-Prefer suggestions that unblock others over ones that only advance my own work.
-Never suggest something already checked off or snoozed.
-
-## Step 5b — Personal block (full and eod modes)
-Read `personal.md`. Add a short **Personal** block after Suggestions: items in
-`## Today`, `## Soon` items due within 2 days, snoozed items now due. Skip if
-empty. Never mix personal items into any other section or draft.
-
-## Step 5c — EOD Slack note (eod mode only)
-After showing the wrap, send it to myself as a Slack DM (my own user, by the
-email in `config.md → Me`) so it's on my phone tonight: heading
+## Step 5c — EOD Slack note (eod only)
+Send the wrap to myself as a Slack DM (my email in `config.md → Me`):
 `EOD YYYY-MM-DD`, then Done today / Rolls to tomorrow / Top 3 tomorrow, one
-line each, no links. Work items only. If Slack isn't connected, skip silently.
+line each, no links, work items only. Slack missing → skip silently.
 
 ## Step 6 — Update loop
-Ask, in one line: "Done anything? Snooze/delegate/drop? Add anything?"
-
-As I answer, update `todos.md` using the same rules as `/morning`:
-- Completed → `## Done` with today's date.
-- Snoozed → `(snoozed until YYYY-MM-DD)`.
-- Delegated → `## Waiting on` with the person's name and `since` today.
-- New → the right bucket (or `personal.md` per `/todo` routing) with today's
-  date and source `manual`; keep any due date I mention as `(due YYYY-MM-DD)`
-  and any "remind me" as `(snoozed until YYYY-MM-DD)`. Same format as `/todo`.
-- If I say I completed a cadence item, update its `last done` in `playbook.md`.
-
-Finally set `last_check` in `todos.md` to today's date and current time
-(`YYYY-MM-DD HH:MM`). Do NOT touch `last_run` — that belongs to `/morning`.
+"Done anything? Snooze/delegate/drop? Add anything?" Apply `/morning` rules:
+completed → `## Done`; snoozed → `(snoozed until ...)`; delegated →
+`## Waiting on` + name + `since`; new → right bucket or `personal.md`, source
+`manual`, keep due/remind tags; cadence done → update `playbook.md`.
+Set `last_check` to `YYYY-MM-DD HH:MM`. Never touch `last_run`.
 
 ## Step 7 — Commit
-After all edits are written, run exactly:
-`git add todos.md playbook.md personal.md && git commit -q -m "checkin: $(date '+%F %H:%M')" || true`
-Silent on success; if git is unavailable or nothing changed, skip without
-comment. Never commit anything other than those files here.
+`git add todos.md playbook.md personal.md .helm/scan.md && git commit -q -m "checkin: $(date '+%F %H:%M')" || true`
+Silent. Never commit other files here.
 
-Tone: terse, one line per item, link on every line. No preamble. No summary of
-what you did.
+Footer: `⏱ <elapsed>s · <n> tool calls`. No preamble, no summary of what you did.

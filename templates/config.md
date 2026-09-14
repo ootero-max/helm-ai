@@ -24,7 +24,10 @@ Every Helm command reads this first. Keep values on one line after the colon.
 ## Jira
 - projects: 
 - support project: 
-<!-- e.g. projects: CRM, ICD, DAI · support project: SUPPORT -->
+- escalated status: 
+<!-- e.g. projects: CRM, ICD, DAI · support project: SUPPORT
+     escalated status: exact Jira status name for tickets escalated to
+     engineering, if your support project has one (optional). -->
 
 ## Products
 - 

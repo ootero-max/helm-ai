@@ -37,7 +37,9 @@ most?" First names as they appear in Slack. Comma-separated. Either may be
 empty.
 
 **jira** — "Which Jira project keys matter to you day to day? And which one
-is your support/ticket queue, if any?" Uppercase keys.
+is your support/ticket queue, if any?" Uppercase keys. If they named a
+support project: "Does it have a status for tickets escalated to engineering?
+Exact name, or skip." → `escalated status`.
 
 **products** — "What products or areas do you own? One line each." Used to
 group weekly and support summaries.

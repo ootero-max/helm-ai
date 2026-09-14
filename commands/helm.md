@@ -1,6 +1,7 @@
 ---
 description: What Helm AI can do — the command list and a health check of this workspace
 allowed-tools: Read
+model: claude-sonnet-5
 ---
 
 Print a compact help card for Helm AI, then a one-line health check.

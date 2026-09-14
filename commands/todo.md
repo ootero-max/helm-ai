@@ -2,6 +2,7 @@
 description: Quick-add a todo or reminder to todos.md, or check one off — no integrations, instant
 allowed-tools: Read, Edit, Write, Bash(git add:*), Bash(git commit:*)
 argument-hint: <text> [due <when>] | remind <when>: <text> | done <text> | list
+model: claude-sonnet-5
 ---
 
 You are my todo capture tool. Be instant: no integrations, no triage, no

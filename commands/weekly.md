@@ -22,7 +22,12 @@ to recover every item that entered `## Done` or `## Waiting on` this week.
 - **Support trend:** created vs resolved this week in the support project;
   still untouched > 2 biz days; top 3 recurring themes by component or product.
 - **Calendar:** count of meetings and hours; external meetings by company.
-- **Slack recency:** for each direct report, days since last DM exchange.
+- **Slack recency:** direct reports only, one search each, days since last
+  DM exchange. This is the only command that does per-person searches.
+
+Speed: issue all reads in one parallel batch; Jira lists `maxResults` ≤ 15
+with minimal fields, counts via `searchResultMode: "count"`. End the review
+with `⏱ <elapsed>s · <n> tool calls`.
 
 ## Step 3 — Review (for me)
 Terse, one line per item with link. Sections:
