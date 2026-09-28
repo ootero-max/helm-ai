@@ -39,7 +39,9 @@ empty.
 **jira** — "Which Jira project keys matter to you day to day? And which one
 is your support/ticket queue, if any?" Uppercase keys. If they named a
 support project: "Does it have a status for tickets escalated to engineering?
-Exact name, or skip." → `escalated status`.
+Exact name, or skip." → `escalated status`. Then: "Does your team publish a
+daily P1/P2 or escalation-board page in Confluence? Paste the link or skip."
+→ `p1p2 page` (the numeric page ID from the URL).
 
 **products** — "What products or areas do you own? One line each." Used to
 group weekly and support summaries.
@@ -48,8 +50,9 @@ group weekly and support summaries.
 1. "Want a short Bible verse at the top of your morning brief? (yes/no) If
    yes, which translation? Default ESV." Set `verse: on|off` and translation.
 2. "Want a line with your favorite sports teams' latest result and next game?
-   Up to two teams, any league." Set `sports: on|off` and the `teams` list as
-   `emoji Team Name (League)`. Pick a fitting emoji yourself.
+   Up to three teams, any league." Set `sports: on|off` and the `teams` list
+   as `emoji Team Name (League)`. Pick a fitting emoji yourself. Then: "Add a
+   headline per team too?" → `news: on|off`.
 3. If they named teams: "Want an ASCII logo at the top of the brief? It
    alternates between your teams." If yes, set `logo: on` and draw one piece
    of ASCII art per team into `art/<team-slug>.txt` (slug = full team name,

@@ -25,9 +25,12 @@ Every Helm command reads this first. Keep values on one line after the colon.
 - projects: 
 - support project: 
 - escalated status: 
+- p1p2 page: 
 <!-- e.g. projects: CRM, ICD, DAI · support project: SUPPORT
      escalated status: exact Jira status name for tickets escalated to
-     engineering, if your support project has one (optional). -->
+     engineering, if your support project has one (optional).
+     p1p2 page: Confluence page ID of a daily escalation-board summary, if
+     your team publishes one (optional). Briefs add a P1/P2 block from it. -->
 
 ## Products
 - 
@@ -36,13 +39,16 @@ Every Helm command reads this first. Keep values on one line after the colon.
 - verse: off
 - verse translation: ESV
 - sports: off
+- news: off
 - logo: off
 - teams:
   - 
   - 
+  - 
 <!-- verse: on|off. sports: on|off (last result + next game per team).
+     news: on|off (one notable headline per team, same search).
      logo: on|off — prints ASCII art from art/<team-slug>.txt at the very top,
-     alternating teams (slug = team name, lowercase, letters only: miamidolphins). Max two teams, e.g. "🐬 Miami Dolphins (NFL)". -->
+     alternating teams (slug = team name, lowercase, letters only: miamidolphins). Up to three teams, e.g. "🐬 Miami Dolphins (NFL)". -->
 
 ## Display
 - bucket colors: classic

@@ -45,6 +45,10 @@ Lookback = since `last_check`; else `last_run`; else 6 hours.
 - **Jira delta:** `project in (<projects>) AND (assignee = currentUser() OR
   reporter = currentUser() OR watcher = currentUser()) AND updated >=
   "<lookback>" ORDER BY updated DESC`, maxResults 10.
+- **P1/P2 board:** if `config.md → Jira → p1p2 page` is set and
+  `.helm/scan.md` has no `## P1/P2` section dated today, read the page once
+  (markdown) and extract the same summary `/morning` does; otherwise use the
+  cached section.
 - **Deep sweep:** only if `.helm/scan.md` is missing or not dated today, run
   the same five capped queries `/morning` uses (counts + top 5) and write the
   file. Otherwise skip entirely.
@@ -54,6 +58,7 @@ subject).
 
 ## Step 3 — Status (full mode)
 1. **Next up:** next calendar event (time, title, who, prep flag).
+1b. **P1/P2** (if configured) — one line: `🚨 <n> breaching · 📨 <n> stranded · 🔁 <n> customer-quiet · ✅ <n> closable`.
 2. **Open todos** by bucket, urgent first. ⏳ Nd for 3+ days. `(due ...)` → ⏰;
    due today/tomorrow/overdue → listed under 🔴 (don't move the line). Hide
    items snoozed until a future date.
@@ -74,7 +79,11 @@ Nothing new → "Nothing new."
 3. **[sprint]** from `.helm/scan.md`: stale issues (ping assignee), unassigned
    Highest/High (suggest an owner from the Team list).
 4. **[support]** from `.helm/scan.md`: aging cluster → suggest a pattern fix.
-5. **[prep]** today's/tomorrow's meetings needing prep.
+5. **[p1p2]** from the board summary: a breaching-today ticket → ping its
+   assignee (one sentence, quoted); stranded replies → ONE message to Rober or
+   the support lead naming the cluster, not each ticket; anything 30+ days in
+   "fix shipped, customer quiet" → a close-or-chase decision with the rep.
+6. **[prep]** today's/tomorrow's meetings needing prep.
 Fit the top suggestion to the next free block. Prefer unblocking others.
 Never suggest something checked off or snoozed. (Team-contact recency lives
 in `/weekly`, not here.)

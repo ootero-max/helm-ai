@@ -51,7 +51,7 @@ restructure it; only add, check off, snooze, or move items per the command
 rules. `/morning` updates `last_run`; `/checkin` updates `last_check`; `/todo`
 touches neither. `playbook.md` holds cadence items and `last done` dates.
 `.helm/scan.md` is a daily cache of the slow Jira sweep (sprint health,
-unassigned, support aging), written by `/morning`; `/checkin` reads it instead
+unassigned, support aging) and the P1/P2 board summary, written by `/morning`; `/checkin` reads it instead
 of re-querying while it is dated today.
 `personal.md` holds non-work items under `## Today / ## Soon / ## Someday /
 ## Done`; they appear only in the Personal block of briefs, never in drafts,

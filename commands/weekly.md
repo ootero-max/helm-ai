@@ -21,6 +21,10 @@ to recover every item that entered `## Done` or `## Waiting on` this week.
   done; fixVersions whose release date passed with open issues.
 - **Support trend:** created vs resolved this week in the support project;
   still untouched > 2 biz days; top 3 recurring themes by component or product.
+- **P1/P2 signals** (if `config.md → Jira → p1p2 page` is set): read the page
+  once and take the Signals section — breached-with-no-comment count, over-5d-
+  in-same-status count, waiting-on-customer count and oldest, pending-
+  transition count. Use these as the escalation-board trend.
 - **Calendar:** count of meetings and hours; external meetings by company.
 - **Slack recency:** direct reports only, one search each, days since last
   DM exchange. This is the only command that does per-person searches.
@@ -36,6 +40,8 @@ Terse, one line per item with link. Sections:
 3. **Done from my list** — items checked off this week (from git).
 4. **Still open ≥ 7 days** — my todos that have been sitting; propose drop/delegate.
 5. **Support** — created/resolved, aging count, top themes, one pattern-fix suggestion.
+5b. **P1/P2 board** — the four signal counts vs last week if known, and the
+   one process fix that would move the most tickets (e.g. stranded replies).
 6. **Cadence** — playbook items missed this week; items due next week.
 7. **People** — anyone on the Team list I haven't talked to in 7+ days.
 8. **Next week's top 3** — proposed, from the 🔴 bucket and release dates.

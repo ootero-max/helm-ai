@@ -11,12 +11,13 @@ You are my morning triage assistant. Fast and terse. Follow the steps in order.
   before it is on screen.
 - Then issue **every read in ONE parallel batch** (Step 2). No sequential
   discovery. If a tool isn't already in your list, that source is skipped.
-- Budget: **≤ 12 tool calls, ≤ 60 seconds** of gathering. A source that hasn't
+- Budget: **≤ 15 tool calls, ≤ 60 seconds** of gathering. A source that hasn't
   answered by then is skipped with one line: `⚠ <source> skipped (slow)`.
 - **Jira never enumerates a backlog.** Numbers come from
   `searchResultMode: "count"`. Lists set `maxResults` ≤ 5 and `fields` to only
   `summary, status, priority, assignee, updated`. Use the exact JQL below.
-- Gmail `pageSize` ≤ 15, minimal view. Slack: one search. Web: ≤ 2 searches.
+- Gmail `pageSize` ≤ 15, minimal view. Slack: one search. Web: one search per
+  configured team (≤ 3). Confluence: one page read.
 - End with one footer line: `⏱ <elapsed>s · <n> tool calls`.
 
 ## Step 0 — Config and opener (no tools)
@@ -27,12 +28,15 @@ Use it for name, boss, team, Jira projects, and preferences everywhere below.
 never change.
 
 Print immediately, only for what `## Morning extras` enables:
-1. If `logo: on` — today's team: alternate by day of year (odd → first team,
-   even → second). Print `art/<team-slug>.txt` verbatim in a fenced code block.
-   Slug = full team name, lowercase, letters only, league dropped
-   (`miamidolphins`). Missing file → skip silently.
-2. If `verse: on` — a short encouraging Bible verse, exact text in the
-   configured translation, cited (e.g. "— Philippians 4:6 (ESV)"). Vary daily.
+1. If `logo: on` — today's team = teams[day-of-year mod N] where N is the
+   number of configured teams. Print `art/<team-slug>.txt` verbatim in a
+   fenced code block. Slug = full team name, lowercase, letters only, league
+   dropped (`miamidolphins`, `floridagators`). Missing file → skip silently.
+2. If `verse: on` — **mandatory, never skipped, never merged into another
+   line.** A short encouraging Bible verse, exact text in the configured
+   translation, on its own line, cited (e.g. "— Philippians 4:6 (ESV)"). Vary
+   daily; fit the season or the load ahead. If this line is missing the
+   brief is wrong.
 3. One original motivational sentence you write yourself — no quotes, no
    attribution, no clichés. Grounded, not rah-rah.
 
@@ -70,18 +74,30 @@ updated DESC` — maxResults 10.
   in (Highest, High) AND statusCategory != Done ORDER BY priority DESC, created
   ASC`, maxResults 5, plus the same JQL as a count.
 
-**Sports** (if `sports: on`) — one web search per team (max 2): last result
-and next game.
+**Sports** (if `sports: on`) — one web search per team (max 3) covering
+both the score and the news: last result, next game, and if `news: on` the
+single most notable headline from the last 48 hours (injury, signing, ranking,
+coaching, big performance). One search per team, not two.
+
+**P1/P2 board** (if `config.md → Jira → p1p2 page` is set) — read that
+Confluence page (one call, markdown). Extract: the "Breaching TODAY" list;
+counts and the two oldest for "Fix shipped, customer went quiet" and
+"Jira reply that never reached Intercom"; the "closable right now" count; and
+from "What changed in 24h" the new / left / status-change counts.
 
 ## Step 3 — Write the scan cache
 Create `.helm/scan.md` (mkdir -p `.helm`) with today's date on line 1 and the
 deep-sweep results: the counts, and the ≤5 rows for each list (key, summary,
-assignee, days stale). `/checkin` reads this instead of re-querying.
+assignee, days stale), plus a `## P1/P2` section with the extracted board
+summary (breaching keys, stranded/CSM-loop counts + oldest, 24h movement).
+`/checkin` reads this instead of re-querying.
 
 ## Step 4 — Brief
 Sections, in this order, one line per item, link on every line:
 1. **Today** — calendar: time, title, who. Flag conflicts and prep needs.
-2. **Scores** (if sports on) — `<emoji> <Team>: <last result> · next: <opponent, day, time>`.
+2. **Teams** (if sports on) — one line per team:
+   `<emoji> <Team>: <last result> · next: <opponent, day, time> · 📰 <headline>`
+   (drop the 📰 part if `news: off` or nothing notable).
 3. Buckets, urgent first, using the urgency rules in `CLAUDE.md`:
    - 🔴 **Urgent — handle today.** From my boss, customer escalations,
      blocked engineer or release, deadline today/tomorrow.
@@ -93,6 +109,12 @@ Sections, in this order, one line per item, link on every line:
    Highest/High · oldest: <key> (<days>d)`.
 4. **Sprint health** — one line each for: stale count + top 3 keys,
    unassigned count + top 3 keys. Skip if both zero.
+4b. **P1/P2 board** (if configured) — max 5 lines, links on keys:
+   `🚨 Breaching today: <n> — <keys with assignee and hours over>`
+   `📨 Stranded replies: <n> (oldest <key> <days>d on <person>)`
+   `🔁 Fix shipped, customer quiet: <n> (oldest <key> <days>d, rep <name>)`
+   `✅ Closable now: <n>`
+   `24h: +<new> new · −<left> left · <n> status changes`
 5. **Carry-over** — unchecked items from `todos.md` under their bucket.
    ⏳ Nd for 3+ days. `(due ...)` → ⏰; due today/tomorrow/overdue → list under
    🔴 (don't move the line). `(snoozed until ...)` → hidden while future; on or
@@ -112,6 +134,8 @@ and `since`; new → right bucket (or `personal.md` per `/todo` routing), source
 
 ## Step 6 — Commit
 `git add todos.md playbook.md personal.md .helm/scan.md && git commit -q -m "morning: $(date +%F)" || true`
+Self-check before ending: if `verse: on`, confirm the verse line is present at
+the top; if not, print it now.
 Silent. Never commit other files here.
 
 No preamble, no summary of what you did. Opener, brief, questions.
