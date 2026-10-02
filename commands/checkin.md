@@ -84,6 +84,9 @@ Nothing new → "Nothing new."
    the support lead naming the cluster, not each ticket; anything 30+ days in
    "fix shipped, customer quiet" → a close-or-chase decision with the rep.
 6. **[prep]** today's/tomorrow's meetings needing prep.
+7. **[meetings]** (eod mode, if Fathom available) — ONE list call for today's
+   recordings; any not in `.helm/followup.md` → "Run `/followup` — <n>
+   meetings today with next steps not captured".
 Fit the top suggestion to the next free block. Prefer unblocking others.
 Never suggest something checked off or snoozed. (Team-contact recency lives
 in `/weekly`, not here.)

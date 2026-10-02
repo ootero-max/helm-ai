@@ -14,6 +14,8 @@ my preferences are in `config.md`. Read it before doing anything else.
 - `/prep [next|<meeting>|tomorrow]` — one-screen meeting brief.
 - `/weekly` — weekly review + draft update to my boss.
 - `/1on1 <name>` — prep for a direct report; notes in `1on1/<name>.md`.
+- `/followup` — Fathom recordings → my action items to todos, theirs to
+  Waiting on, follow-up drafts. Tracks processed meetings in `.helm/followup.md`.
 - `/setup [section]` — first-run configuration, or redo one section.
 - Every command commits what it changed; nothing pushes. `git push` when I want.
 

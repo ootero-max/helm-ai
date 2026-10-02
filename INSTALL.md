@@ -36,6 +36,8 @@ and connect:
 - Google Calendar
 - Slack
 - Atlassian (Jira)
+- Fathom (optional, powers `/followup`: turns recorded meetings into todos and
+  follow-up drafts, and shows "last time we met" in `/prep`)
 - Intercom (optional, only used by meeting prep for customer meetings)
 
 Helm works with whatever is connected and silently skips the rest, so you can
@@ -123,6 +125,7 @@ something right now:
 | `/draft` | Reply drafts for everything waiting on you. Never sends |
 | `/prep next` | Before a meeting |
 | `/1on1 <name>` | Before a 1:1. Add `notes: ...` afterwards to record it |
+| `/followup` | After meetings. Fathom action items → todos, Waiting on, follow-up drafts |
 | `/weekly` | Friday. Review plus a draft update to your boss |
 | `/helm-ai:helm` | Command list and a health check |
 

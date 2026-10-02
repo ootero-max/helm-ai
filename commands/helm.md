@@ -13,6 +13,7 @@ Print a compact help card for Helm AI, then a one-line health check.
 - `/draft [item]` — reply drafts for the 🟡 bucket, never sends
 - `/prep [next|tomorrow|<meeting>]` — one-screen meeting brief
 - `/1on1 <name> [notes: ...]` — prep and record a 1:1
+- `/followup [today|yesterday|<meeting>]` — Fathom meetings → next steps (needs Fathom connected)
 - `/weekly` — review the week, draft the update to my boss
 - `/setup [section]` — configure or reconfigure
 

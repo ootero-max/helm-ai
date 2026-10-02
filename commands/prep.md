@@ -28,6 +28,10 @@ For each attendee other than me:
 - **Todos:** every line in `todos.md` that mentions them, including Waiting-on.
 - **Intercom** (customers only, if connected): open conversations for their
   company in the last 30 days.
+- **Fathom** (if available): the most recent recorded meeting in the last 60
+  days with the same title or at least one of these attendees — its summary,
+  decisions, and action items, and which of those are still open (not in
+  `todos.md` Done, no Jira resolution). One list call, one detail call.
 Also read the calendar event description and any linked doc title.
 
 ## Step 3 — Brief
@@ -35,7 +39,10 @@ One screen, nothing more. Sections in this order, one line per bullet, links
 on every line:
 1. **Meeting** — time, title, duration, location/link, agenda if any.
 2. **People** — one line each: who they are + the last thing between you.
-3. **Open threads** — what they're waiting on from me; what I'm waiting on from them.
+3. **Last time we met** (if Fathom had one) — date, 2 decisions, and the
+   action items still open, each with owner. This is what they'll expect you
+   to have done.
+3b. **Open threads** — what they're waiting on from me; what I'm waiting on from them.
 4. **Their Jira** — top 3–5 items, priority-ordered, stale flagged.
 5. **Likely to come up** — 2–4 bullets inferred from the above. Be specific.
 6. **Suggested asks** — 1–3 things I should get out of this meeting.

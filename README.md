@@ -18,6 +18,7 @@ Built at Dazos for the product team. Private.
 | `/draft` | When replies pile up | Gmail/Slack drafts for every "needs reply" item. Never sends |
 | `/prep next` | Before a meeting | Attendees, last exchanges, their Jira, what you owe each other |
 | `/1on1 <name>` | Before a 1:1 | Their load, wins, talking points; records notes after |
+| `/followup` | After meetings | Fathom recordings → my action items to todos, theirs to Waiting on, follow-up drafts |
 | `/weekly` | Friday | Shipped, slipped, support trend, cadence misses, draft update to your boss |
 
 Optional: a 1pm check-in and 5pm wrap delivered to your Slack DM by a cloud

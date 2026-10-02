@@ -66,7 +66,8 @@ group weekly and support summaries.
 All default to off. Never push.
 
 **connectors** — Detect what's connected by attempting one cheap read with
-each tool family: Gmail (search 1 message), Jira (search 1 issue), Slack (read
+each tool family: Gmail (search 1 message), Jira (search 1 issue), Fathom
+(list 1 recording; optional — powers `/followup`), Slack (read
 own profile), Google Calendar (list calendars). Report a four-line checklist:
 ✅ connected / ❌ not connected. For each ❌, give the one-line fix:
 - claude.ai connectors: https://claude.ai/customize/connectors (Gmail,
@@ -87,7 +88,7 @@ Then tell them the three prerequisites from that README. Do not try to create
 the routines during setup.
 
 **aliases** — So the user can type `/morning` instead of `/helm-ai:morning`:
-for each of morning, checkin, todo, draft, prep, weekly, 1on1, setup, write
+for each of morning, checkin, todo, draft, prep, weekly, 1on1, followup, setup, write
 `.claude/commands/<name>.md` from `${CLAUDE_PLUGIN_ROOT}/templates/alias.md`,
 replacing `{{COMMAND}}`, `{{DESCRIPTION}}` (copy from the plugin command's
 frontmatter), and `{{ARGUMENT_HINT}}` (same; empty if none). Skip files that
