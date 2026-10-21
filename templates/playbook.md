@@ -17,6 +17,7 @@ Date format: YYYY-MM-DD. Leave `last done` blank to have it surface immediately.
 | Support trend review: top recurring issues by product | biweekly | | Pattern fixes > ticket fixes |
 | Release notes / customer comms review before each release | per release | | Check with CS before it ships |
 | Customer conversations (at least 2) | biweekly | | Sales, CS, or direct |
+| Customer voice digest (`/voice`) | weekly | | Frustrations, needs, competitor mentions from Sales/CS/Impl calls |
 | Competitive / market scan | monthly | | |
 | Goals / OKR check-in with my boss | quarterly | | |
 | Backlog grooming with leads | biweekly | | Unassigned Highest/High should be zero |

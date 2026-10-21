@@ -57,6 +57,11 @@ Every Helm command reads this first. Keep values on one line after the colon.
      Set "team" and pick four emoji in your teams' colors, hottest first,
      e.g. 🟠 🩵 🟢 ⚪ for Dolphins/Hurricanes. Every command uses these. -->
 
+## Voice (customer calls)
+- teams: Sales, Customer Success, Implementation Specialists
+- window: 14d
+<!-- Fathom team names (run list_teams to check). /voice mines their calls. -->
+
 ## Routines
 - slack briefs: off
 <!-- on = 1pm check-in and 5pm end-of-day delivered to your Slack DM by a cloud routine. -->

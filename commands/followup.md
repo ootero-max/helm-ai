@@ -25,9 +25,13 @@ and the `last_followup` timestamp.
 - Anything else → the most recent recording whose title or attendees match.
 
 ## Step 2 — Gather (one batch)
-From Fathom: the recordings in scope (title, time, attendees, duration), then
-for each: the summary, action items, decisions, and any open questions. Do
-not fetch transcripts unless the summary has no action items at all.
+Fathom tool names: `list_meetings` with `created_after`, `include_summary:
+true`, `include_action_items: true`, `max_pages: 2` — ONE call returns
+title, time, attendees, summary, and action items for every meeting in
+scope; omit `recorded_by` so meetings others recorded but I attended are
+included. Use `get_meeting_summary` only for a meeting the list call
+truncated. `get_meeting_transcript` only if a summary has no action items
+at all.
 Also read `todos.md` so you can tell which action items are already captured
 (match on wording / Jira key / meeting name).
 

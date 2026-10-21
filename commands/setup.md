@@ -18,6 +18,7 @@ Then copy templates that don't already exist (never overwrite existing files):
 - `${CLAUDE_PLUGIN_ROOT}/templates/personal.md` → `personal.md`
 - `${CLAUDE_PLUGIN_ROOT}/templates/playbook.md` → `playbook.md`
 - `${CLAUDE_PLUGIN_ROOT}/templates/routines/README.md` → `routines/README.md`
+- `${CLAUDE_PLUGIN_ROOT}/templates/ideas.md` → `ideas.md`
 - create `1on1/` with a one-line README.
 - `.gitignore` with `.DS_Store`, `.claude/settings.local.json`, `.claude/scheduled_tasks.lock`.
 Then run every section below in order. If an argument names a section, run
@@ -88,7 +89,7 @@ Then tell them the three prerequisites from that README. Do not try to create
 the routines during setup.
 
 **aliases** — So the user can type `/morning` instead of `/helm-ai:morning`:
-for each of morning, checkin, todo, draft, prep, weekly, 1on1, followup, setup, write
+for each of morning, checkin, todo, draft, prep, weekly, 1on1, followup, voice, setup, write
 `.claude/commands/<name>.md` from `${CLAUDE_PLUGIN_ROOT}/templates/alias.md`,
 replacing `{{COMMAND}}`, `{{DESCRIPTION}}` (copy from the plugin command's
 frontmatter), and `{{ARGUMENT_HINT}}` (same; empty if none). Skip files that
