@@ -128,6 +128,7 @@ something right now:
 | `/1on1 <name>` | Before a 1:1. Add `notes: ...` afterwards to record it |
 | `/followup` | After meetings. Fathom action items → todos, Waiting on, follow-up drafts |
 | `/voice` | Weekly. Customer calls → frustrations, needs, competitor mentions, product ideas |
+| `/boss` | Before your 1:1 with your boss: recommended topics written into your shared agenda doc. `/boss log: ...` after |
 | `/weekly` | Friday. Review plus a draft update to your boss |
 | `/helm-ai:helm` | Command list and a health check |
 

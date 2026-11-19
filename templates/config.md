@@ -14,7 +14,10 @@ Every Helm command reads this first. Keep values on one line after the colon.
 ## Boss
 - name: 
 - title: 
-<!-- Anything from this person is 🔴 by default. -->
+- 1:1 day: Thursday
+- agenda doc: 
+<!-- Anything from this person is 🔴 by default. agenda doc = the claude.ai
+     artifact link of your shared 1:1 agenda (a Claude Doc); /boss writes it. -->
 
 ## Team
 - direct reports: 

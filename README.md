@@ -20,6 +20,7 @@ Built at Dazos for the product team. Private.
 | `/1on1 <name>` | Before a 1:1 | Their load, wins, talking points; records notes after |
 | `/followup` | After meetings | Fathom recordings → my action items to todos, theirs to Waiting on, follow-up drafts |
 | `/voice` | Weekly | Sales, CS, and Implementation calls → frustrations, needs, competitors, risks, product ideas into `ideas.md` |
+| `/boss` | Before/after your 1:1 with your boss | Recommends topics from carry-over, his open asks, decisions you need, risks; writes the shared agenda doc; `/boss log:` records decisions and actions |
 | `/weekly` | Friday | Shipped, slipped, support trend, cadence misses, draft update to your boss |
 
 Optional: a 1pm check-in and 5pm wrap delivered to your Slack DM by a cloud

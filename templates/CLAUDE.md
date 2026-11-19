@@ -18,6 +18,8 @@ my preferences are in `config.md`. Read it before doing anything else.
   Waiting on, follow-up drafts. Tracks processed meetings in `.helm/followup.md`.
 - `/voice` — Sales/CS/Implementation calls in Fathom → frustrations, needs,
   competitors, risks, product ideas. Ideas land in `ideas.md`; risks in todos.
+- `/boss [topics: ...] | [log: ...]` — 1:1 with my boss: recommend topics, write
+  the shared agenda doc (Claude Docs connector), log decisions and actions after.
 - `/setup [section]` — first-run configuration, or redo one section.
 - Every command commits what it changed; nothing pushes. `git push` when I want.
 

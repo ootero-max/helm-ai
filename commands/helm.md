@@ -15,6 +15,7 @@ Print a compact help card for Helm AI, then a one-line health check.
 - `/1on1 <name> [notes: ...]` — prep and record a 1:1
 - `/followup [today|yesterday|<meeting>]` — Fathom meetings → next steps (needs Fathom connected)
 - `/voice [7d|30d|<team>|<keyword>|dig <n>]` — customer voice from Sales/CS/Impl calls → ideas.md
+- `/boss [topics: ...] | [log: ...]` — prep my 1:1 with my boss into the shared agenda doc; log it after
 - `/weekly` — review the week, draft the update to my boss
 - `/setup [section]` — configure or reconfigure
 

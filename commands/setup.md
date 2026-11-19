@@ -31,7 +31,10 @@ timezone (offer the machine's timezone as default via `date +%Z`). Set the
 git identity for this workspace from name + email.
 
 **boss** — "Who do you report to, and their title?" Explain in one clause
-that anything from this person is treated as urgent.
+that anything from this person is treated as urgent. Then: "What day is
+your 1:1, and do you keep a shared agenda doc for it? Paste the claude.ai
+link or skip." → `1:1 day`, `agenda doc`. If they have none, offer to
+create one later with `/boss` (it needs the Claude Docs connector).
 
 **team** — "Who are your direct reports? And who are the peers you work with
 most?" First names as they appear in Slack. Comma-separated. Either may be
@@ -89,7 +92,7 @@ Then tell them the three prerequisites from that README. Do not try to create
 the routines during setup.
 
 **aliases** — So the user can type `/morning` instead of `/helm-ai:morning`:
-for each of morning, checkin, todo, draft, prep, weekly, 1on1, followup, voice, setup, write
+for each of morning, checkin, todo, draft, prep, weekly, 1on1, followup, voice, boss, setup, write
 `.claude/commands/<name>.md` from `${CLAUDE_PLUGIN_ROOT}/templates/alias.md`,
 replacing `{{COMMAND}}`, `{{DESCRIPTION}}` (copy from the plugin command's
 frontmatter), and `{{ARGUMENT_HINT}}` (same; empty if none). Skip files that
