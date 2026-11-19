@@ -78,8 +78,16 @@ Show the proposed agenda in chat first, numbered, then ask: "Write which?
 (numbers, `all`, swap order, or add topics)". Never write before approval.
 
 ## Step 4 — Write the Next meeting section (PREP, on approval)
-Target date = the next occurrence of the 1:1 weekday (the doc's template says
-which; default Thursday), or the Calendar event's date if found.
+**Format is not negotiable.** The section must match the doc's own
+template and its logged entries exactly: a bold date line first, then
+`**Agenda Items**`, then bold numbered titles, then bullets, then the
+Decisions and Action items placeholders. Copy the wording and punctuation
+of the most recent Meeting log entry (e.g. `**Thursday, Aug 27, 2026**`,
+`**1. Title**`). Never a `##` heading, a table, or an emoji inside the
+section. Never omit the date line.
+Target date = the Calendar event's date if found, else the next occurrence
+of `config.md → Boss → 1:1 day` (today counts if the meeting hasn't started).
+Date format: `Weekday, Mon D, YYYY` as the log entries spell it.
 One `update` call on the body node, `engine: "prose"`, container the doc:
 - `delete` every block between the `Next meeting` heading and the
   `Meeting log` heading (their ids from the view, `"ifRev"` = that read's
@@ -107,6 +115,8 @@ One `update` call on the body node, `engine: "prose"`, container the doc:
   has them. Bold titles, bullet lists, no `##` headings inside the section.
 If the update is refused with `guard_mismatch`, someone edited the doc:
 re-read with `sinceRev`, show me what changed, and ask again.
+Self-check after the ack: the section starts with the bold date line and
+ends with the two placeholders; if not, fix it in a second `update`.
 Then `git add todos.md && git commit -q -m "boss: agenda $(date +%F)" || true`
 if I added todos along the way.
 
